@@ -1,6 +1,10 @@
+using Demo.BLL.Services.Classes;
+using Demo.BLL.Services.Interfaces;
 using Demo.DataAccess.Data.Contexts;
+using Demo.DataAccess.Repositories.Classes;
+using Demo.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+
 
 namespace Demo.Presentation
 {
@@ -13,11 +17,13 @@ namespace Demo.Presentation
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<ApplicationDbContext>();
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"));
             });
-
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
             var app = builder.Build();
 
@@ -37,6 +43,7 @@ namespace Demo.Presentation
             app.UseAuthorization(); //Roles
 
             app.MapStaticAssets();
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
