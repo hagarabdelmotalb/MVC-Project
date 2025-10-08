@@ -25,6 +25,8 @@ namespace Demo.Presentation
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
