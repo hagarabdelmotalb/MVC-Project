@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Demo.DataAccess.Models.DepartmentModule;
+using System.Reflection;
 
 namespace Demo.DataAccess.Data.Contexts
 {
@@ -13,6 +14,7 @@ namespace Demo.DataAccess.Data.Contexts
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Department> Employees { get; set; }
 
     }
 }
