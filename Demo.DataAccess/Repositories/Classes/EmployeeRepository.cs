@@ -5,8 +5,8 @@ using Demo.DataAccess.Repositories.Interfaces;
 
 namespace Demo.DataAccess.Repositories.Classes
 {
-    public class DepartmentRepository(ApplicationDbContext _dbContext)
-        : GenericRepository<Department>(_dbContext), IDepartmentRepository
+    public class EmployeeRepository(ApplicationDbContext _dbContext) 
+        : GenericRepository<Employee>(_dbContext), IEmployeeRepository
     {
     }
 }
