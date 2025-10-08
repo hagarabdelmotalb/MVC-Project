@@ -1,46 +1,46 @@
-﻿using Demo.BLL.DTOS.EmployeeDTOS;
+﻿using AutoMapper;
+using Demo.BLL.DTOS.EmployeeDTOS;
 using Demo.BLL.Services.Interfaces;
+using Demo.DataAccess.Models.EmployeeModule;
 using Demo.DataAccess.Repositories.Interfaces;
 
 namespace Demo.BLL.Services.Classes
 {
-    public class EmployeeService(IEmployeeRepository _employeeRepository) : IEmployeeService
+    public class EmployeeService(IEmployeeRepository _employeeRepository,IMapper _mapper) : IEmployeeService
     {
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
-            throw new NotImplementedException();
+           var employee= _mapper.Map<CreatedEmployeeDto,Employee>(employeeDto);
+            return _employeeRepository.Add(employee);    
         }
 
         public bool DeleteEmployee(int id)
         {
-            throw new NotImplementedException();
+            var employee = _employeeRepository.GetById(id);
+            if (employee is null) return false;
+
+            else{
+                employee.IsDeleted = true;
+                return _employeeRepository.Update(employee)>0 ? true : false;
+            }
         }
 
         public IEnumerable<EmployeeDto> GetAllEmployee(bool withTracking = false)
         {
             var employees = _employeeRepository.GetAll(withTracking);
-            var employeeDto = employees.Select(e => new EmployeeDto() 
-            { 
-                Id = e.Id,
-                Name = e.Name,
-                Email = e.Email,
-                Age = e.Age,
-                Salary = e.Salary,
-                IsActive = e.isActive,
-                Gender = e.Gender.ToString(),
-                EmployeeType = e.EmployeeType.ToString(),
-            });
+            var employeeDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             return employeeDto;
         }
 
         public EmployeeDetailsDto GetEmployeeById(int id)
         {
-            throw new NotImplementedException();
+            var employee = _employeeRepository.GetById(id);
+            return employee is null ? null : _mapper.Map<Employee,EmployeeDetailsDto>(employee);
         }
 
         public int UpdateEmployee(UpdatedEmployeeDto employeeDto)
         {
-            throw new NotImplementedException();
+            return _employeeRepository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(employeeDto));
         }
     }
 }

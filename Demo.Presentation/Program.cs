@@ -1,3 +1,4 @@
+using Demo.BLL.Mappins;
 using Demo.BLL.Services.Classes;
 using Demo.BLL.Services.Interfaces;
 using Demo.DataAccess.Data.Contexts;
@@ -24,8 +25,11 @@ namespace Demo.Presentation
             });
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddAutoMapper(Mapping => Mapping.AddProfile(new MappingProfile() ));
+
 
             var app = builder.Build();
 
