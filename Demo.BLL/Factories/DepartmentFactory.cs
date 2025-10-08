@@ -1,5 +1,5 @@
-﻿using Demo.DataAccess.Models;
-using Demo.BLL.DTOS;
+﻿using Demo.BLL.DTOS;
+using Demo.DataAccess.Models.DepartmentModule;
 
 namespace Demo.BLL.Factories
 {
