@@ -1,4 +1,4 @@
-﻿using Demo.BLL.DTOS;
+﻿using Demo.BLL.DTOS.DepartmentDTOS;
 using Demo.BLL.Factories;
 using Demo.BLL.Services.Interfaces;
 using Demo.DataAccess.Repositories.Interfaces;
