@@ -1,8 +1,7 @@
-﻿using Demo.BLL.Services.Classes;
-using Demo.BLL.Services.Interfaces;
-using Demo.BLL.DTOS;
+﻿using Demo.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Demo.Presentation.ViewModels;
+using Demo.BLL.DTOS.DepartmentDTOS;
 
 namespace Demo.Presentation.Controllers
 {
@@ -65,7 +64,7 @@ namespace Demo.Presentation.Controllers
         }
         #endregion
 
-        #region details
+        #region Details
         [HttpGet]
         public IActionResult Details(int? id)
         {
@@ -124,10 +123,8 @@ namespace Demo.Presentation.Controllers
                 catch (Exception ex)
                 {
                     if (_env.IsDevelopment())
-                    {
                         _logger.LogError($"Department can not be created because : {ex.Message}");
 
-                    }
                     else
                     {
                         _logger.LogError($"Department can not be created because {ex}");
@@ -140,6 +137,7 @@ namespace Demo.Presentation.Controllers
         #endregion
 
         #region Delete
+
         [HttpGet]
         public IActionResult Delete(int? id)
         {
@@ -179,6 +177,7 @@ namespace Demo.Presentation.Controllers
                 }
             }
             return RedirectToAction(nameof(Delete), new { id });
+
             #endregion
         }
     }
