@@ -123,10 +123,8 @@ namespace Demo.Presentation.Controllers
                 catch (Exception ex)
                 {
                     if (_env.IsDevelopment())
-                    {
                         _logger.LogError($"Department can not be created because : {ex.Message}");
 
-                    }
                     else
                     {
                         _logger.LogError($"Department can not be created because {ex}");
@@ -139,6 +137,7 @@ namespace Demo.Presentation.Controllers
         #endregion
 
         #region Delete
+
         [HttpGet]
         public IActionResult Delete(int? id)
         {
@@ -178,6 +177,7 @@ namespace Demo.Presentation.Controllers
                 }
             }
             return RedirectToAction(nameof(Delete), new { id });
+
             #endregion
         }
     }
