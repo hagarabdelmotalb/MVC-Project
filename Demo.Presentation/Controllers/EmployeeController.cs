@@ -1,4 +1,5 @@
 ﻿using Demo.BLL.DTOS.EmployeeDTOS;
+using Demo.BLL.Services.Classes;
 using Demo.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace Demo.Presentation.Controllers
     public class EmployeeController(IEmployeeService _employeeService
         , IWebHostEnvironment _env, ILogger<DepartmentController> _logger) : Controller
     {
-        #region index
+        #region Index
         [HttpGet]
         public IActionResult Index()
         {
@@ -16,7 +17,7 @@ namespace Demo.Presentation.Controllers
         }
         #endregion
 
-        #region create
+        #region Create
         [HttpGet]
         public IActionResult Create()
         {
@@ -56,6 +57,17 @@ namespace Demo.Presentation.Controllers
                 }
             }
             return View(employeeDto);
+        }
+        #endregion
+
+        #region Details
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (!id.HasValue) return BadRequest();
+            var employee = _employeeService.GetEmployeeById(id.Value);
+            if (employee == null) return NotFound();
+            return View(employee);
         }
         #endregion
     }
