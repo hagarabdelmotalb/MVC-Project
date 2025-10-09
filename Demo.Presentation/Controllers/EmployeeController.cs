@@ -1,5 +1,4 @@
 ﻿using Demo.BLL.DTOS.EmployeeDTOS;
-using Demo.BLL.Services.Classes;
 using Demo.BLL.Services.Interfaces;
 using Demo.DataAccess.Models.EmployeeModule;
 using Demo.DataAccess.Models.Shared;
@@ -27,6 +26,7 @@ namespace Demo.Presentation.Controllers
         }
 
         [HttpPost]
+        //[ValidateAntiForgeryToken]
         public IActionResult Create(CreatedEmployeeDto employeeDto)
         {
             if (ModelState.IsValid)
