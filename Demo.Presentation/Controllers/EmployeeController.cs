@@ -1,4 +1,5 @@
 ﻿using Demo.BLL.DTOS.EmployeeDTOS;
+using Demo.BLL.Services.Classes;
 using Demo.BLL.Services.Interfaces;
 using Demo.DataAccess.Models.EmployeeModule;
 using Demo.DataAccess.Models.Shared;
@@ -119,6 +120,40 @@ namespace Demo.Presentation.Controllers
                 }
             }
             return View(employeeDto);
+        }
+        #endregion
+
+        #region Delete
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if (id == 0) return BadRequest();
+            try
+            {
+                bool isDeleted = _employeeService.DeleteEmployee(id);
+                if (isDeleted)
+                    return RedirectToAction(nameof(Index));
+
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Department can not be deleted");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                if (_env.IsDevelopment())
+                {
+                    _logger.LogError($"Department can not be created because : {ex.Message}");
+
+                }
+                else
+                {
+                    _logger.LogError($"Department can not be created because {ex}");
+                    return View("ErrorView", ex);
+                }
+            }
+            return RedirectToAction(nameof(Delete), new { id });
         }
         #endregion
     }

@@ -14,9 +14,9 @@ namespace Demo.DataAccess.Repositories.Classes
         {
             if (withTracking)
             {
-                return _dbContext.Set<TEntity>().ToList();
+                return _dbContext.Set<TEntity>().Where(entity => entity.IsDeleted == false).ToList();
             }
-            return _dbContext.Set<TEntity>().AsNoTracking().ToList();
+            return _dbContext.Set<TEntity>().Where(entity => entity.IsDeleted == false).AsNoTracking().ToList();
         }
 
         //Get department by id
