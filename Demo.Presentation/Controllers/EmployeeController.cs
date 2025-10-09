@@ -1,9 +1,11 @@
-﻿using Demo.BLL.Services.Interfaces;
+﻿using Demo.BLL.DTOS.EmployeeDTOS;
+using Demo.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
 {
-    public class EmployeeController(IEmployeeService _employeeService) : Controller
+    public class EmployeeController(IEmployeeService _employeeService
+        , IWebHostEnvironment _env, ILogger<DepartmentController> _logger) : Controller
     {
         #region index
         [HttpGet]
@@ -16,9 +18,44 @@ namespace Demo.Presentation.Controllers
 
         #region create
         [HttpGet]
-        public IActionResult Create() 
-        { 
+        public IActionResult Create()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreatedEmployeeDto employeeDto)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    int result = _employeeService.CreateEmployee(employeeDto);
+                    if (result > 0)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Employee can not be created");
+                        return View(employeeDto);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (_env.IsDevelopment())
+                    {
+                        _logger.LogError($"Employee can not be created because : {ex.Message}");
+                        //return View(DepartmentDto);
+                    }
+                    else
+                    {
+                        _logger.LogError($"Employee can not be created because {ex}");
+                        return View("ErrorView", ex);
+                    }
+                }
+            }
+            return View(employeeDto);
         }
         #endregion
     }
