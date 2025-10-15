@@ -42,15 +42,15 @@ namespace Demo.Presentation.Controllers
                         Description = departmentViewModel.Description,
                         DateOfCreation = departmentViewModel.CreatedAt,
                     });
+                    string message;
                     if (result > 0)
-                    {
-                        return RedirectToAction("Index");
-                    }
+                        message = "Department created successfully";
                     else
-                    {
-                        ModelState.AddModelError(string.Empty, "Department can not be created");
-                        return View(departmentViewModel);
-                    }
+                        message = "Department can not be created";
+
+                    TempData["Message"] = message;
+
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
