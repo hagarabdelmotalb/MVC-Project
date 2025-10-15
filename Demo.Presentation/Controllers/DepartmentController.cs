@@ -27,7 +27,7 @@ namespace Demo.Presentation.Controllers
 
         //submit form
         [HttpPost]
-        public IActionResult Create(CreateDepartmentDto DepartmentDto)
+        public IActionResult Create(DepartmentViewModel departmentViewModel)
         {
             //ModelState.AddModelError("code", "code must be greater than 100");
             //ModelState.AddModelError(string.Empty,"Department can not be created"); //general error message
@@ -35,16 +35,22 @@ namespace Demo.Presentation.Controllers
             {
                 try
                 {
-                    int result = _departmentService.AddDepartment(DepartmentDto);
+                    int result = _departmentService.AddDepartment(new CreateDepartmentDto()
+                    { 
+                        Name = departmentViewModel.Name,
+                        Code = departmentViewModel.Code,
+                        Description = departmentViewModel.Description,
+                        DateOfCreation = departmentViewModel.CreatedAt,
+                    });
+                    string message;
                     if (result > 0)
-                    {
-                        return RedirectToAction("Index");
-                    }
+                        message = "Department created successfully";
                     else
-                    {
-                        ModelState.AddModelError(string.Empty, "Department can not be created");
-                        return View(DepartmentDto);
-                    }
+                        message = "Department can not be created";
+
+                    TempData["Message"] = message;
+
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
@@ -60,7 +66,7 @@ namespace Demo.Presentation.Controllers
                     }
                 }
             }
-            return View(DepartmentDto);
+            return View(departmentViewModel);
         }
         #endregion
 
@@ -82,7 +88,7 @@ namespace Demo.Presentation.Controllers
             if (!id.HasValue) return BadRequest();
             var department = _departmentService.GetDepartmentById(id.Value);
             if (department == null) return NotFound();
-            var departmentVM = new DepartmentEditViewModel()
+            var departmentVM = new DepartmentViewModel()
             {
                 Code = department.Code,
                 Description = department.Description,
@@ -93,7 +99,7 @@ namespace Demo.Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute] int? id, DepartmentEditViewModel departmentVM)
+        public IActionResult Edit([FromRoute] int? id, DepartmentViewModel departmentVM)
         {
             if (ModelState.IsValid)
             {
