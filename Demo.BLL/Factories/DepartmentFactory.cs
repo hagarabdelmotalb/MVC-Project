@@ -1,4 +1,4 @@
-﻿using Demo.BLL.DTOS;
+﻿using Demo.BLL.DTOS.DepartmentDTOS;
 using Demo.DataAccess.Models.DepartmentModule;
 
 namespace Demo.BLL.Factories
