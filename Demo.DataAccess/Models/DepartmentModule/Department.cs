@@ -8,6 +8,6 @@ namespace Demo.DataAccess.Models.DepartmentModule
         public string Name { get; set; } = null!;
         public string Code { get; set; } = null!;
         public string? Description { get; set; }
-        public ICollection<Employee>? Employees { get; set; }
+        public virtual ICollection<Employee>? Employees { get; set; }
     }
 }

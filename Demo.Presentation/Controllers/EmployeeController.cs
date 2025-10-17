@@ -46,6 +46,9 @@ namespace Demo.Presentation.Controllers
                         Email = employeeViewModel.Email,
                         PhoneNumber = employeeViewModel.PhoneNumber,
                         HiringDate = employeeViewModel.HiringDate,
+                        Gender = employeeViewModel.Gender,  
+                        EmployeeType = employeeViewModel.EmployeeType,  
+                        DepartmentId = employeeViewModel.DepartmentId
 
                     });
                     if (result > 0)
@@ -105,7 +108,8 @@ namespace Demo.Presentation.Controllers
                 PhoneNumber = employee.PhoneNumber,
                 HiringDate = employee.HiringDate,
                 Gender = Enum.Parse<Gender>(employee.Gender),
-                EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType)
+                EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType),
+                DepartmentId = employee.DepartmentId
             };
             return View(employeeViewModel);
         }
@@ -129,7 +133,8 @@ namespace Demo.Presentation.Controllers
                     HiringDate = employeeViewModel.HiringDate,
                     EmployeeType = employeeViewModel.EmployeeType,
                     Gender = employeeViewModel.Gender,
-                    
+                    Id = employeeViewModel.Id,
+
 
                 });
                 if (result > 0)
