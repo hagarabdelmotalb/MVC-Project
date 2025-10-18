@@ -25,9 +25,18 @@ namespace Demo.BLL.Services.Classes
             }
         }
 
-        public IEnumerable<EmployeeDto> GetAllEmployee(bool withTracking = false)
+        public IEnumerable<EmployeeDto> GetAllEmployee(string? EmployeeSearchName , bool withTracking = false)
         {
-            var employees = _employeeRepository.GetAll(withTracking);
+            IEnumerable<Employee> employees;
+            if (!string.IsNullOrEmpty(EmployeeSearchName))
+            {
+                employees = _employeeRepository.GetAll(e => e.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
+            }
+            else
+            {
+                employees = _employeeRepository.GetAll(withTracking);
+            }
+
             var employeeDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             return employeeDto;
         }

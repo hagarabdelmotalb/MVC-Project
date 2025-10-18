@@ -3,6 +3,7 @@ using Demo.DataAccess.Models.DepartmentModule;
 using Demo.DataAccess.Models.Shared;
 using Demo.DataAccess.Repositories.Interfaces;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Demo.DataAccess.Repositories.Classes
 {
@@ -41,6 +42,11 @@ namespace Demo.DataAccess.Repositories.Classes
         {
             _dbContext.Set<TEntity>().Remove(entity);
             return _dbContext.SaveChanges();
+        }
+
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _dbContext.Set<TEntity>().Where(predicate).ToList();
         }
     }
 }
