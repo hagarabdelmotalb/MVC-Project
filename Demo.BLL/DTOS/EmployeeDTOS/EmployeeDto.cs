@@ -17,5 +17,8 @@ namespace Demo.BLL.DTOS.EmployeeDTOS
         [Display(Name = "Employee Type")]
         public string EmployeeType { get; set; }
         public string? Department { get; set; }
+
+        [Display(Name= "Image")]
+        public string? ImageName { get; set; }
     }
 }
