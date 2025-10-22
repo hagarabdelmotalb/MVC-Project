@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Demo.BLL.DTOS.EmployeeDTOS;
+using Demo.BLL.Services.AttachmentService;
 using Demo.BLL.Services.Interfaces;
 using Demo.DataAccess.Models.EmployeeModule;
-using Demo.DataAccess.Repositories.Interfaces;
 
 namespace Demo.BLL.Services.Classes
 {
-    public class EmployeeService(IUnitOfWork _unitOfWork,IMapper _mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitOfWork,IMapper _mapper, IAttachmentService _attachmentService) : IEmployeeService
     {
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {

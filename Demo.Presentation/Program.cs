@@ -1,4 +1,5 @@
 using Demo.BLL.Mappins;
+using Demo.BLL.Services.AttachmentService;
 using Demo.BLL.Services.Classes;
 using Demo.BLL.Services.Interfaces;
 using Demo.DataAccess.Data.Contexts;
@@ -29,6 +30,7 @@ namespace Demo.Presentation
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
             builder.Services.AddAutoMapper(Mapping => Mapping.AddProfile(new MappingProfile() ));
 
 
