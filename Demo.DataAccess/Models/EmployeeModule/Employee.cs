@@ -17,5 +17,6 @@ namespace Demo.DataAccess.Models.EmployeeModule
         public Gender Gender { get; set; }
         public virtual Department? Department { get; set; }
         public int? DepartmentId { get; set; }
+        public string? ImageName { get; set; }
     }
 }
