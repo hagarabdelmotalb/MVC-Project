@@ -10,7 +10,12 @@ namespace Demo.BLL.Services.Classes
     {
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
-           var employee= _mapper.Map<CreatedEmployeeDto,Employee>(employeeDto);
+            var employee = _mapper.Map<CreatedEmployeeDto, Employee>(employeeDto);
+            if (employeeDto.Image is not null)
+            {
+                string? fileName = _attachmentService.Upload(employeeDto.Image,"images");
+                employee.ImageName = fileName;
+            }
             _unitOfWork.EmployeeRepository.Add(employee); 
             return _unitOfWork.SaveChanges();
         }

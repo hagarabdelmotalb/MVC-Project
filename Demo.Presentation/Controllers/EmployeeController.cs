@@ -48,7 +48,8 @@ namespace Demo.Presentation.Controllers
                         HiringDate = employeeViewModel.HiringDate,
                         Gender = employeeViewModel.Gender,  
                         EmployeeType = employeeViewModel.EmployeeType,  
-                        DepartmentId = employeeViewModel.DepartmentId
+                        DepartmentId = employeeViewModel.DepartmentId,
+                        Image= employeeViewModel.Image
 
                     });
                     if (result > 0)
